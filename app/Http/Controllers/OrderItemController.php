@@ -13,7 +13,9 @@ class OrderItemController extends Controller
      */
     public function index() : View
     {
-        return View("OrderItem.index");
+        return View("OrderItem.index",[
+            'OrderItems'=>OrderItem::all(),
+        ]);
     }
     /**
      * Show the form for creating a new resource.
