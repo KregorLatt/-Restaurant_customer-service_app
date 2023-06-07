@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\OrderItemController;
+use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +22,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('OrderItem', OrderItemController::class)
+Route::resource('MenuItem', MenuItemController::class)
     ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {

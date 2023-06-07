@@ -1,8 +1,8 @@
 <x-app-layout>
     <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
-        <form method="POST" action="{{ route('OrderItem.store') }}">
+        <form method="POST" action="{{ route('MenuItem.store') }}">
             @csrf
-            <input type="text" name="name" value="{{ old('name') }}" placeholder="{{ __('Name the OrderItem') }}"
+            <input type="text" name="name" value="{{ old('name') }}" placeholder="{{ __('Name the MenuItem') }}"
                 class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
             <input type="number" name="basePrice_cents" value="{{ old('basePrice_cents') }}"
@@ -10,23 +10,23 @@
                 class="mt-2 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
             <x-input-error :messages="$errors->get('basePrice_cents')" class="mt-2" />
             <input type="number" name="duration_minutes" value="{{ old('duration_minutes') }}"
-                placeholder="{{ __('OrderItem duration in minutes') }}"
+                placeholder="{{ __('MenuItem duration in minutes') }}"
                 class="mt-2 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
             <x-input-error :messages="$errors->get('duration_minutes')" class="mt-2" />
-            <textarea name="description" placeholder="{{ __('Add a description for the OrderItem.') }}"
+            <textarea name="description" placeholder="{{ __('Add a description for the MenuItem.') }}"
                 class="mt-2 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">{{ old('description') }}</textarea>
             <x-input-error :messages="$errors->get('description')" class="mt-2" />
-            <x-primary-button class="mt-4">{{ __('Add OrderItem') }}</x-primary-button>
+            <x-primary-button class="mt-4">{{ __('Add MenuItem') }}</x-primary-button>
         </form>
         <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
-            @foreach ($OrderItems as $OrderItem)
+            @foreach ($MenuItems as $MenuItem)
             <div class="flex-1">
                 <div>
                 <div class="flex justify-between items-center">
                     <div class="ml-2 text-sm text-gray-600">
-                        Name:<span class="text-lg text-gray-800"> {{ $OrderItem->name }}</span>
-                        <small class="ml-2 text-sm text-gray-600">{{ $OrderItem->created_at->format('j M Y, g:i a') }}</small>
-                        @unless ($OrderItem->created_at->eq($OrderItem->updated_at))
+                        Name:<span class="text-lg text-gray-800"> {{ $MenuItem->name }}</span>
+                        <small class="ml-2 text-sm text-gray-600">{{ $MenuItem->created_at->format('j M Y, g:i a') }}</small>
+                        @unless ($MenuItem->created_at->eq($MenuItem->updated_at))
                         <small class="text-sm text-gray-600"> &middot; {{ __('edited') }}</small>
                         @endunless
                     </div>
@@ -39,19 +39,19 @@
                             </button>
                         </x-slot>
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('OrderItem.edit', $OrderItem)">
+                            <x-dropdown-link :href="route('MenuItem.edit', $MenuItem)">
                                 {{ __('Edit') }}
                             </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                     </div>
                     <div>
-                    <small class="ml-2 text-sm text-gray-600">Duration: {{ $OrderItem->duration_minutes }}minutes.</small>
+                    <small class="ml-2 text-sm text-gray-600">Duration: {{ $MenuItem->duration_minutes }}minutes.</small>
                     </div>
                     <div class="ml-2 text-sm text-gray-600">
-                        Base Price:<span class="text-lg text-gray-800"> {{ $OrderItem->basePrice_cents / 100 }}€</span>
+                        Base Price:<span class="text-lg text-gray-800"> {{ $MenuItem->basePrice_cents / 100 }}€</span>
                     </div>
-                    <p class="ml-2 my-4 text-gray-900">{{ $OrderItem->description }}</p>
+                    <p class="ml-2 my-4 text-gray-900">{{ $MenuItem->description }}</p>
                 </div>
             </div>
             @endforeach

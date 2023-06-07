@@ -1,21 +1,21 @@
 <?php
 namespace App\Http\Controllers;
-use App\Models\OrderItem;
+use App\Models\MenuItem;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class OrderItemController extends Controller
+class MenuItemController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index() : View
     {
-        return View("OrderItem.Index",[
-            'OrderItems'=>OrderItem::all(),
+        return View("MenuItem.Index",[
+            'MenuItems'=>MenuItem::all(),
         ]);
     }
     /**
@@ -39,32 +39,32 @@ class OrderItemController extends Controller
             'duration_minutes' => 'integer|gte:0',
             'description' => 'nullable|string',
         ]);
-        $OrderItem = OrderItem::create($validated);
-        $OrderItem->save();
+        $MenuItem = MenuItem::create($validated);
+        $MenuItem->save();
 
-        return redirect(route('OrderItem.index'));
+        return redirect(route('MenuItem.index'));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(OrderItem $OrderItem)
+    public function show(MenuItem $MenuItem)
     {
         //
     }
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(OrderItem $OrderItem): View
+    public function edit(MenuItem $MenuItem): View
     {
-        return view('OrderItem.Edit',[
-            'OrderItem' => $OrderItem,
+        return view('MenuItem.Edit',[
+            'MenuItem' => $MenuItem,
         ]);
     }
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, OrderItem $OrderItem):RedirectResponse
+    public function update(Request $request, MenuItem $MenuItem):RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:128',
@@ -73,14 +73,14 @@ class OrderItemController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        $OrderItem->update($validated);
+        $MenuItem->update($validated);
 
-        return redirect(route('OrderItem.index'));
+        return redirect(route('MenuItem.index'));
     }
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(OrderItem $OrderItem)
+    public function destroy(MenuItem $MenuItem)
     {
         //
     }
