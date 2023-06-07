@@ -13,7 +13,7 @@ class OrderItemController extends Controller
      */
     public function index() : View
     {
-        return View("OrderItem.index",[
+        return View("OrderItem.Index",[
             'OrderItems'=>OrderItem::all(),
         ]);
     }
@@ -54,16 +54,27 @@ class OrderItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(OrderItem $OrderItem)
+    public function edit(OrderItem $OrderItem): View
     {
-        //
+        return view('OrderItem.Edit',[
+            'OrderItem' => $OrderItem,
+        ]);
     }
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, OrderItem $OrderItem)
+    public function update(Request $request, OrderItem $OrderItem):RedirectResponse
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:128',
+            'basePrice_cents' => 'integer|gte:0',
+            'duration_minutes' => 'integer|gte:0',
+            'description' => 'nullable|string',
+        ]);
+
+        $OrderItem->update($validated);
+
+        return redirect(route('OrderItem.Edit'));
     }
     /**
      * Remove the specified resource from storage.
