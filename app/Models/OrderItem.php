@@ -13,5 +13,15 @@ class OrderItem extends Model
         'basePrice_cents',
         'duration_minutes',
         'description',
+
     ];
+    /**
+     * Get all of the orders for the Service
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function Orders(): HasMany
+    {
+        return $this->hasMany(Orders::class);
+    }
 }

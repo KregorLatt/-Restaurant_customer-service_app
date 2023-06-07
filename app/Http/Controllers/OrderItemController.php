@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class OrderItemController extends Controller
 {
@@ -74,7 +75,7 @@ class OrderItemController extends Controller
 
         $OrderItem->update($validated);
 
-        return redirect(route('OrderItem.Edit'));
+        return redirect(route('OrderItem.index'));
     }
     /**
      * Remove the specified resource from storage.
