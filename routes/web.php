@@ -2,6 +2,7 @@
 use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrdersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('MenuItem', MenuItemController::class)
+    ->middleware(['auth', 'verified']);
+
+    Route::resource('orders', OrdersController::class)
     ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {

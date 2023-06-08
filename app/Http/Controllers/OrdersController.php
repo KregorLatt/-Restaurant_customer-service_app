@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Orders;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrdersController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index():View
     {
-        //
+        return View("orders.index",[
+            'orders'=>Orders::all(),
+        ]);
     }
 
     /**
@@ -44,7 +48,7 @@ class OrdersController extends Controller
      */
     public function edit(Orders $orders)
     {
-        //
+        
     }
 
     /**
@@ -59,6 +63,11 @@ class OrdersController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Orders $orders)
+    {
+        //
+    }
+
+    public function MenuItem(): BelongsTo
     {
         //
     }
