@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Orders;
+
 use App\Models\MenuItem;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use DateInterval;
+
 
 
 class OrdersController extends Controller
@@ -40,8 +42,8 @@ class OrdersController extends Controller
             'ordering_time' => 'required|date|after:today',
             'MenuItem_id' => 'required|gt:0',
         ]);
-        $ordering = new Ordering;
-        $Ordering->ordering_time = $validated['ordering_time'];
+        $ordering = new Orders;
+        $ordering->ordering_time = $validated['ordering_time'];
         $ordering->MenuItem()->associate(MenuItem::find($validated['MenuItem_id']));
         $ordering->server()->associate($request->user());
         $ordering->save();

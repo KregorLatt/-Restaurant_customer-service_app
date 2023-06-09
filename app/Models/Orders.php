@@ -11,10 +11,17 @@ class Orders extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'booking_time',
+        'name',
+        'basePrice_cents',
+        'duration_minutes',
+        'description',
     ];
     public function MenuItem(): BelongsTo
     {
         return $this->belongsTo(MenuItem::class);
+    }
+    public function server(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
