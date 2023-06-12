@@ -32,14 +32,14 @@ Route::resource('orders', OrdersController::class)
 
 Route::get('/OrderStatus', [OrderStatusController::class, 'index'])->name('OrderStatus.index');
 Route::patch('/OrderStatus/{order}', [OrderStatusController::class, 'update'])->name('OrderStatus.update');
-Route::delete('/OrderStatus/{order}', [OrderStatusController::class, 'destroy'])->name('OrderStatus.destroy');
+Route::post('/OrderStatus/{order}', [OrderStatusController::class, 'done'])->name('orders.done');
 
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
 
 });
 

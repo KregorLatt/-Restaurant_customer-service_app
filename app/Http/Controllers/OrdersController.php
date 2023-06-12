@@ -110,4 +110,8 @@ class OrdersController extends Controller
     {
         //
     }
+    public function done(Order $order)
+    {
+
+    }
 }

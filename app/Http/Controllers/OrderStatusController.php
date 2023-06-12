@@ -1,25 +1,29 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Orders;
-use App\Models\OrderStatus;
-use Illuminate\Http\Request;
-use  Illuminate\View\View;
 
+use App\Models\Order;
+
+use App\Models\MenuItem;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Http\RedirectResponse;
+
+use DateInterval;
 
 class OrderStatusController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
     public function index():View
     {
         return View("OrderStatus.index",[
-            'orders'=>Orderstatus::all()
-                        ->whereNull('OrderStatus_id')
-                        ->where('order_time','>=',now())
-                        ->sortBy('order_time'),
-                    ]);
+            'orders'=>Order::all()-> where("done","=","false"),
+            'MenuItems'=>MenuItem::all(),
+        ]);
     }
 
     /**
@@ -35,34 +39,52 @@ class OrderStatusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'order_time' => 'required|date|after:today',
+            'MenuItem_id' => 'required|gt:0',
+        ]);
+        $order = new Order;
+        $order->order_time = $validated['order_time'];
+        $order->MenuItem()->associate(MenuItem::find($validated['MenuItem_id']));
+        $order->server()->associate($request->user());
+        $order->save();
+
+        return redirect(route('orders.index'));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(OrderStatus $orderStatus)
+    public function edit(Order $order):View
     {
-        //
-    }
 
+
+    }
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(OrderStatus $orderStatus)
+    public function show(Order $order)
     {
-        //
+        //$this->authorize('update',$order);
+        return view('orders.edit',[
+            'order'=>$order,
+            'MenuItems'=>MenuItem::all(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, OrderStatus $orderStatus)
+    public function update(Request $request, Order $order): RedirectResponse
     {
-        $order->client()->associate($request->user());
-        $order->update();
 
-        return redirect(route('OrderStatus.index'));
+        $validated = $request->validate([
+            'order_time' => 'required|date|after:today',
+            'MenuItem_id' => 'required|gt:0',
+        ]);
+        $order->update($validated);
+
+        return redirect(route('orders.index'));
     }
 
     /**
@@ -72,4 +94,10 @@ class OrderStatusController extends Controller
     {
         //
     }
+    public function done(Order $order)
+    {
+        return redirect(route('OrderStatus.index'));
+    }
+
+
 }
