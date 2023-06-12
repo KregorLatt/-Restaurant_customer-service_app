@@ -3,6 +3,7 @@ use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\OrderStatusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,10 +30,17 @@ Route::resource('MenuItem', MenuItemController::class)
     Route::resource('orders', OrdersController::class)
     ->middleware(['auth', 'verified']);
 
+    Route::get('/OrderStatus', [OrderStatusController::class, 'index'])->name('OrderStatus.index');
+Route::patch('/OrderStatus/{ordering}', [OrderStatusController::class, 'update'])->name('OrderStatus.update');
+Route::delete('/OrderStatus/{ordering}', [OrderStatusController::class, 'destroy'])->name('OrderStatus.destroy');
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+
 });
 
 require __DIR__.'/auth.php';
