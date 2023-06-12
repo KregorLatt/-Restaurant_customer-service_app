@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 
-class Orders extends Model
+class Order extends Model
 {
     use HasFactory;
     protected $fillable = [

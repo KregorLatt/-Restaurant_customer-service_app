@@ -27,12 +27,12 @@ Route::get('/dashboard', function () {
 Route::resource('MenuItem', MenuItemController::class)
     ->middleware(['auth', 'verified']);
 
-    Route::resource('orders', OrdersController::class)
+Route::resource('orders', OrdersController::class)
     ->middleware(['auth', 'verified']);
 
-    Route::get('/OrderStatus', [OrderStatusController::class, 'index'])->name('OrderStatus.index');
-Route::patch('/OrderStatus/{ordering}', [OrderStatusController::class, 'update'])->name('OrderStatus.update');
-Route::delete('/OrderStatus/{ordering}', [OrderStatusController::class, 'destroy'])->name('OrderStatus.destroy');
+Route::get('/OrderStatus', [OrderStatusController::class, 'index'])->name('OrderStatus.index');
+Route::patch('/OrderStatus/{order}', [OrderStatusController::class, 'update'])->name('OrderStatus.update');
+Route::delete('/OrderStatus/{order}', [OrderStatusController::class, 'destroy'])->name('OrderStatus.destroy');
 
 
 Route::middleware('auth')->group(function () {

@@ -15,10 +15,10 @@ class OrderStatusController extends Controller
     public function index():View
     {
         return View("OrderStatus.index",[
-            'orderings'=>Orders::all()
+            'orders'=>Orders::all()
                         ->whereNull('OrderStatus_id')
-                        ->where('ordering_time','>=',now())
-                        ->sortBy('ordering_time'),
+                        ->where('order_time','>=',now())
+                        ->sortBy('order_time'),
                     ]);
     }
 
@@ -59,8 +59,8 @@ class OrderStatusController extends Controller
      */
     public function update(Request $request, OrderStatus $orderStatus)
     {
-        $ordering->client()->associate($request->user());
-        $ordering->update();
+        $order->client()->associate($request->user());
+        $order->update();
 
         return redirect(route('OrderStatus.index'));
     }

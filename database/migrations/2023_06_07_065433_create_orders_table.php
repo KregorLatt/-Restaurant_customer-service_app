@@ -13,15 +13,17 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('name',128);
-            $table->integer('basePrice_cents');
+
             $table->text('description')->nullable();
-            $table->dateTime('ordering_time');
-            $table->unsignedBigInteger('MenuItem_id')->nullable()
+            $table->dateTime('order_time');
+            $table->unsignedBigInteger('menu_item_id')->nullable()
                     ->references('id')
-                    ->on('MenuItem');
+                    ->on('menu_items');
+            $table->unsignedBigInteger('server_id')
+            ->references('id')
+            ->on('users');
             $table->timestamps();
-            
+
         });
     }
 

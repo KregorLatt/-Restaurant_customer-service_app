@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Orders;
+use App\Models\Order;
 
 use App\Models\MenuItem;
 use Illuminate\Http\Request;
@@ -19,8 +19,8 @@ class OrdersController extends Controller
      */
     public function index():View
     {
-        return View("orderings.index",[
-            'orderings'=>Orders::all(),
+        return View("orders.index",[
+            'orders'=>Order::all(),
             'MenuItems'=>MenuItem::all(),
         ]);
     }
@@ -39,26 +39,26 @@ class OrdersController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'ordering_time' => 'required|date|after:today',
+            'order_time' => 'required|date|after:today',
             'MenuItem_id' => 'required|gt:0',
         ]);
-        $ordering = new Orders;
-        $ordering->ordering_time = $validated['ordering_time'];
-        $ordering->MenuItem()->associate(MenuItem::find($validated['MenuItem_id']));
-        $ordering->server()->associate($request->user());
-        $ordering->save();
+        $order = new Order;
+        $order->order_time = $validated['order_time'];
+        $order->MenuItem()->associate(MenuItem::find($validated['MenuItem_id']));
+        $order->server()->associate($request->user());
+        $order->save();
 
-        return redirect(route('orderings.index'));
+        return redirect(route('orders.index'));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Orders $orders)
+    public function show(Order $order)
     {
-        //$this->authorize('update',$ordering);
-        return view('orderings.edit',[
-            'ordering'=>$ordering,
+        //$this->authorize('update',$order);
+        return view('orders.edit',[
+            'order'=>$order,
             'MenuItem'=>MenuItem::all(),
         ]);
     }
@@ -66,40 +66,40 @@ class OrdersController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Orders $orders):View
+    public function edit(Order $order):View
     {
-        $this->authorize('update', $ordering);
-        $ordering_time = date_create($ordering->ordering_time);
-        $seconds = $ordering_time->format('s');
+
+        $order_time = date_create($order->order_time);
+        $seconds = $order_time->format('s');
         if($seconds > 0){
-            $ordering_time->sub(new DateInterval("PT".$seconds."S"));
-            $ordering->ordering_time = $ordering_time->format('c');
+            $order_time->sub(new DateInterval("PT".$seconds."S"));
+            $order->order_time = $order_time->format('c');
         }
-        return view('orderings.edit',[
-            'ordering'=>$ordering,
-            'MenuItem'=>SMenuItem::all(),
+        return view('orders.edit',[
+            'order'=>$order,
+            'MenuItem'=>MenuItem::all(),
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Orders $orders): RedirectResponse
+    public function update(Request $request, Order $order): RedirectResponse
     {
-        $this->authorize('update',$ordering);
+
         $validated = $request->validate([
-            'ordering_time' => 'required|date|after:today',
+            'order_time' => 'required|date|after:today',
             'MenuItem_id' => 'required|gt:0',
         ]);
-        $ordering->update($validated);
+        $order->update($validated);
 
-        return redirect(route('orderings.index'));
+        return redirect(route('orders.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Orders $orders)
+    public function destroy(Order $order)
     {
         //
     }
