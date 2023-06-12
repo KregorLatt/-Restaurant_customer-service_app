@@ -31,7 +31,7 @@
                         @endunless
                     </div>
                     {{ route('MenuItem.edit',$MenuItem) }}
-                    {{ $MenuItem }}
+
                     <x-dropdown>
                         <x-slot name="trigger">
                             <button>

@@ -21,7 +21,7 @@
             <x-primary-button class="mt-4">{{ __('Order') }}</x-primary-button>
         </form>
         @foreach ($orders as $order)
-        {{ $order }}
+
             <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
                 <div>
                     <div class="flex justify-between items-center">
@@ -36,7 +36,7 @@
                         <small class="text-sm text-gray-600"> &middot; {{ __('edited') }}</small>
                         @endunless --}}
                         </div>
-                        
+
                         @if ($order->server->is(auth()->user()))
                              <x-dropdown>
                                 <x-slot name="trigger">

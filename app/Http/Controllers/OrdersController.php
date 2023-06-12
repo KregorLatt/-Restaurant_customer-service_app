@@ -8,6 +8,8 @@ use App\Models\MenuItem;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Http\RedirectResponse;
+
 use DateInterval;
 
 
@@ -59,7 +61,7 @@ class OrdersController extends Controller
         //$this->authorize('update',$order);
         return view('orders.edit',[
             'order'=>$order,
-            'MenuItem'=>MenuItem::all(),
+            'MenuItems'=>MenuItem::all(),
         ]);
     }
 
@@ -77,7 +79,7 @@ class OrdersController extends Controller
         }
         return view('orders.edit',[
             'order'=>$order,
-            'MenuItem'=>MenuItem::all(),
+            'MenuItems'=>MenuItem::all(),
         ]);
     }
 

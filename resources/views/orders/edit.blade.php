@@ -15,7 +15,9 @@
                         class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
                             <option value="0" disabled selected>{{ __('Select MenuItem') }}</option>
                             @foreach ($MenuItems as $MenuItem)
-                            <option value="{{$MenuItem->id}}" @selected(old(MenuItem_id,$order->MenuItem_id)==$MenuItem->id) >{{ $MenuItem->name }}</option>
+                            <option value="{{$MenuItem->id}}" @selected(old('MenuItem_id',$order->MenuItem_id)==$MenuItem->id) >{{ $MenuItem->name }}</option>
+                            
+
                             @endforeach
                         </select>
                     </label>

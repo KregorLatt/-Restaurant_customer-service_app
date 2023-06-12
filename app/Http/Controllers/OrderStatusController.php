@@ -15,7 +15,7 @@ class OrderStatusController extends Controller
     public function index():View
     {
         return View("OrderStatus.index",[
-            'orders'=>Orders::all()
+            'orders'=>Orderstatus::all()
                         ->whereNull('OrderStatus_id')
                         ->where('order_time','>=',now())
                         ->sortBy('order_time'),
