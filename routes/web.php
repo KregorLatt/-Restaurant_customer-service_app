@@ -33,6 +33,8 @@ Route::resource('orders', OrdersController::class)
 Route::get('/OrderStatus', [OrderStatusController::class, 'index'])->name('OrderStatus.index');
 Route::patch('/OrderStatus/{order}', [OrderStatusController::class, 'update'])->name('OrderStatus.update');
 Route::post('/OrderStatus/{order}', [OrderStatusController::class, 'done'])->name('orders.done');
+Route::post('/orders/{order}', [OrdersController::class, 'delivered'])->name('orders.delivered');
+
 
 
 Route::middleware('auth')->group(function () {

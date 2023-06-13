@@ -99,7 +99,16 @@ class OrderStatusController extends Controller
         $order->done = true;
         $order->save();
 
-        return redirect(route('orders.index'));
+        return redirect(route('OrderStatus.index'));
+
+    }
+    public function delivered(Order $order)
+    {
+
+        // $order->delivered = true;
+        // $order->save();
+
+        // return redirect(route('orders.index'));
 
     }
 

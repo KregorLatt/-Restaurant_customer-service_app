@@ -30,7 +30,7 @@
                         <small class="text-sm text-gray-600"> &middot; {{ __('edited') }}</small>
                         @endunless
                     </div>
-                    {{ route('MenuItem.edit',$MenuItem) }}
+
 
                     <x-dropdown>
                         <x-slot name="trigger">
