@@ -22,7 +22,7 @@ class OrdersController extends Controller
     public function index():View
     {
         return View("orders.index",[
-            'orders'=>Order::all(),
+            'orders'=>Order::where('done', true)->get(),
             'MenuItems'=>MenuItem::all(),
         ]);
     }
@@ -110,8 +110,5 @@ class OrdersController extends Controller
     {
         //
     }
-    public function done(Order $order)
-    {
 
-    }
 }

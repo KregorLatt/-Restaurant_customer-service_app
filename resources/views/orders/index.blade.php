@@ -21,5 +21,27 @@
             <x-primary-button class="mt-4">{{ __('Order') }}</x-primary-button>
         </form>
 
+        <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
+            @foreach ($orders as $order)
+                <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
+                    <div>
+                        <div class="flex justify-between items-center">
+                            <div class="ml-2 text-sm text-gray-600">
+                                Name:<span class="text-lg text-gray-800"> {{ $order->name }}</span><br>
+                                Order Time:<span class="text-lg text-gray-800"> {{ $order->order_time }}</span><br>
+                                Server:<span class="text-lg text-gray-800"> {{ $order->server->name }}</span><br>
+                                @if ($order->client)
+                                    Client:<span class="text-lg text-gray-800"> {{ $order->client->name }}</span>
+                                @endif
+                            </div>
+                            <!-- Rest of your code -->
+                        </div>
+                        <!-- Rest of your code -->
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+
     </div>
 </x-app-layout>

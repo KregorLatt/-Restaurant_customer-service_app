@@ -21,7 +21,7 @@ class OrderStatusController extends Controller
     public function index():View
     {
         return View("OrderStatus.index",[
-            'orders'=>Order::all()-> where("done","=","false"),
+            'orders'=>Order::where('done', false)->get(),
             'MenuItems'=>MenuItem::all(),
         ]);
     }
@@ -96,7 +96,11 @@ class OrderStatusController extends Controller
     }
     public function done(Order $order)
     {
-        return redirect(route('OrderStatus.index'));
+        $order->done = true;
+        $order->save();
+
+        return redirect(route('orders.index'));
+
     }
 
 

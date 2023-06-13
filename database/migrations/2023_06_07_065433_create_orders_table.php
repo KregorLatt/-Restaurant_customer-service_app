@@ -23,8 +23,8 @@ return new class extends Migration
             ->references('id')
             ->on('users');
             $table->timestamps();
-            $table->boolean('done');
-            $table->boolean('delivered');
+            $table->boolean('done')->default(0);
+            $table->boolean('delivered')->default(0);
 
         });
     }
